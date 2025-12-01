@@ -1,0 +1,20 @@
+{
+  "gender": "male",
+  "height": 180,
+  "weight": 75,
+  "plan_name": "Half Marathon",
+  "measurement_unit": "km",
+  "start_date": "2025-01-13T06:00:00.000Z",
+  "race_date": "2025-03-30T09:00:00.000Z",
+  "min_weeks_plan": 10,
+  "max_week_plans": 12,
+  "days_per_week": "6",
+  "specific_days": "Monday,Tuesday,Wednesday,Thursday,Friday,Sunday",
+  "long_run_day": "Sunday",
+  "estimated_race_time": "1:35:00-1:45:00",
+  "weekly_mileage_past_4_weeks": "55-60",
+  "goal_race_time": "01:40:00",
+  "longest_run_past_4_weeks": "18 km",
+  "course_profile": "Hilly",
+  "running_experience": "Advanced"
+}
