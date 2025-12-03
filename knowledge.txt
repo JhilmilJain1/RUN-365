@@ -1,0 +1,495 @@
+🏗️ PROJECT ARCHITECTURE
+1. Core System Components
+A. Two-Phase Plan Generation
+Phase 1: Fast first-week generation (using GPT-5-nano)
+Returns Week 1 workouts in ~5-10 seconds
+Generates unique plan_id for tracking
+Stores minimal context in memory
+Phase 2: Complete plan generation (using GPT-5-mini)
+Uses plan_id to retrieve context
+Generates all remaining weeks (2 through N)
+Includes detailed analysis and recommendations
+B. In-Memory Storage System
+Stores plan context with 24-hour TTL
+Automatic cleanup every hour
+Links first week to complete plan via plan_id
+2. INPUT PROCESSING & VALIDATION
+A. Input Normalization
+Plan Type: Marathon, Half Marathon, 5K, 10K
+Measurement Units: km/miles conversion
+Height/Weight: Parses various formats (feet/inches, cm, lbs, kg)
+BMI Calculation: Automatic from height/weight
+Time Formats: Handles "4:30:00", "4hrs-5hrs", ranges
+Weekly Mileage: Parses ranges like "40-45" or "50+"
+Specific Days: Converts arrays to comma-separated strings
+B. Auto-Fix Logic
+Fixes invalid race times (e.g., "0-5 mins" → "4:30:00-5:00:00")
+Corrects 0 weekly mileage for beginners
+Adjusts start dates to match training days
+Adds missing days for Elite/Advanced runners requesting 7 days
+Validates long_run_day is in specific_days
+C. Safety Validations
+Prevents 0 weekly mileage (minimum 10-15 miles/week)
+Requires at least one long run in history
+Validates race time is in hours, not minutes
+Checks days_per_week matches specific_days count
+3. RUNNER PROFILING SYSTEM
+A. Experience Levels (Critical Differentiator)
+Beginner:
+
+Starts at 50-80% of recent volume
+Longest plan duration (max_week_plans)
+Slowest progression (2-8% per week)
+90%+ easy running in early weeks
+Conservative long run caps (18 mi / 30 km max)
+Intermediate:
+
+Starts at 60-90% of recent volume
+Medium duration (midpoint of min/max)
+Moderate progression (3-10% per week)
+80/20 easy/quality mix
+Long run caps (20 mi / 32 km max)
+Advanced:
+
+Starts at 80-100% of recent volume
+Shorter duration (closer to minimum)
+Faster progression (5-10% per week)
+Regular quality work from Week 1
+Long run caps (21 mi / 34 km max)
+Elite:
+
+Starts at 100% of recent volume
+Shortest duration (minimum weeks)
+Aggressive progression (8-10% per week)
+Significant quality work (80/20 with harder sessions)
+Highest long run caps (22 mi / 36 km max)
+Special case: If 0 recent mileage, starts at 30-50km (not beginner level)
+B. BMI-Based Adjustments
+BMI Categories:
+
+Underweight: <18.5
+Healthy: 18.5-24.9
+Overweight: 25-29.9
+Obesity Class 1: 30-34.9
+Obesity Class 2: 35-39.9
+Obesity Class 3: ≥40
+Impact on Training:
+
+Healthy: Standard progression
+Overweight: Moderate progression (slower increases)
+Obesity: Conservative progression (slowest increases, longer duration)
+Duration Adjustments:
+
+Beginner + Obesity: max_week_plans + 2 weeks
+Intermediate + Obesity: midpoint + 2 weeks
+Advanced + Obesity: min_weeks + 2 weeks
+Rationale: More time needed for safe adaptation
+4. PACE CALCULATION SYSTEM
+A. Pace Zones (Relative to Goal Pace)
+Easy Run:
+
+Beginner: Goal pace + 75-90 sec
+Intermediate: Goal pace + 60-75 sec
+Advanced/Elite: Goal pace + 60-70 sec
+Purpose: Conversational, aerobic base building
+Long Run:
+
+Beginner: Goal pace + 60-75 sec (all easy)
+Intermediate: Goal pace + 50-65 sec (can add goal pace segments)
+Advanced: Goal pace + 45-60 sec (mixed paces)
+Elite: Goal pace + 45-55 sec (significant goal pace work)
+Tempo Run:
+
+Beginner: Goal pace + 25-30 sec (20-30 min duration)
+Intermediate: Goal pace + 20-25 sec (30-45 min)
+Advanced/Elite: Goal pace + 15-20 sec (45-75 min)
+Purpose: Lactate threshold training
+Threshold: Goal pace + 10-20 sec
+
+Intervals/VO2:
+
+Beginner: Goal pace - 10 to -15 sec (rare, late in plan)
+Intermediate: Goal pace - 15 to -20 sec
+Advanced/Elite: Goal pace - 20 to -30 sec
+Recovery: Goal pace + 90-120 sec
+
+B. Course Profile Adjustments
+Flat/Track: Base pace zones (fastest)
+
+Rolling Hills: Add 10-15 seconds to ALL zones
+
+Easy: +70-100 sec instead of +60-90
+Tempo: +40-55 sec instead of +30-45
+85/15 easy/quality mix
+Hilly: Add 20-30 seconds to ALL zones
+
+Easy: +80-110 sec instead of +60-90
+Tempo: +50-65 sec instead of +30-45
+90/10 easy/quality mix
+Emphasize effort-based running
+5. WORKOUT SEQUENCING LOGIC
+A. Optimal Weekly Pattern
+Ideal 6-day pattern:
+
+Easy Run (start fresh)
+Tempo/Intervals (quality #1)
+Recovery Run (active recovery)
+Easy Run (build back)
+Long Run (quality #2, weekend)
+Easy Run
+Rest (automatic)
+B. Hard Workout Spacing Rules
+Required Recovery:
+
+After Intervals: Minimum 1 recovery + 1 easy day before next hard effort
+After Tempo: Minimum 1 easy/recovery day
+After Long Run: Minimum 1 easy/recovery day
+Before Long Run: Minimum 1 easy day (NEVER tempo/intervals before)
+Prohibited Sequences:
+
+❌ Tempo → Intervals (consecutive days)
+❌ Intervals → Long Run (consecutive days)
+❌ Long Run → Tempo/Intervals (next day)
+Optimal Spacing:
+
+Tempo and Intervals: 3-4 days apart minimum
+Long Run: 3-4 days after last hard effort
+6. REST DAY LOGIC
+A. Experience-Based Requirements
+Beginner:
+
+Required: 1 rest day per week minimum
+Recommended: 5-6 training days
+Intermediate:
+
+Recommended: 1 rest day (optional)
+Can train: 5-6 days
+Advanced/Elite:
+
+Optional rest days
+Can train: 6-7 days
+If 7 days selected: NO forced rest days
+B. Rest Day Placement
+Rules:
+
+Never on long_run_day
+Preferably after hardest workout (intervals, tempo, or long run)
+Separate from training days (if 6 training days selected, rest is the 7th day)
+Representation:
+
+{
+  "workout_type": "Rest",
+  "intensity": "Rest",
+  "distance": 0,
+  "duration": 0
+}
+7. WEEK CALCULATION & DATE LOGIC
+A. Week Boundary Rules
+All weeks: Monday to Sunday
+Week 1: Monday of the week containing first workout day
+Subsequent weeks: Sequential Monday-Sunday blocks
+B. Start Date Processing
+Parse ISO start_date
+If AM and weekday ∈ specific_days → first workout = that day
+Else → next available day in specific_days
+Find Monday of that week → Week 1 start
+C. First Workout Day Safety Rule (Week 1 Only)
+If first_workout_date == long_run_day:
+
+✅ SKIP long run in Week 1 entirely
+✅ Use only Easy Runs
+✅ Long run starts from Week 2
+Rationale: Prevents injury from starting with hardest workout
+If first_workout_date ≠ long_run_day:
+
+✅ Include long run on long_run_day in Week 1
+✅ Follow standard distribution
+D. Race Date Handling
+If race_date provided: Calculate duration to end on that date
+Work backwards from race date
+Ensure proper taper (1-3 weeks) before race
+Final week ends on race_date with race as long run
+8. DISTANCE BUDGETING & PROGRESSION
+A. Week 1 Distance Calculation
+Baseline from Recent Mileage:
+
+Beginner (Healthy): 70-80% of baseline
+Beginner (Overweight): 60-70%
+Beginner (Obesity): 50-60%
+Intermediate (Healthy): 80-90%
+Intermediate (Overweight): 70-80%
+Intermediate (Obesity): 60-70%
+Advanced (Healthy/Overweight): 90-100%
+Advanced (Obesity): 80-90%
+Elite: 100%
+Long Run (Week 1):
+
+25-30% of Week 1 total weekly distance
+Beginners: Cap at 20-25%
+Obesity: Cap at 20-25% regardless of experience
+Safety cap: ≤ 110% of longest_run_past_4_weeks
+Other Runs:
+
+Short run: 25-35% of long run distance
+Medium run: 50-70% of long run distance
+B. Weekly Progression Rates
+By Experience + BMI:
+
+Beginner (Healthy): 6-8% per week
+Beginner (Overweight): 4-6%
+Beginner (Obesity): 2-4%
+Intermediate (Healthy): 7-10%
+Intermediate (Overweight): 5-8%
+Intermediate (Obesity): 3-5%
+Advanced (Healthy/Overweight): 8-10%
+Advanced (Obesity): 5-7%
+Elite: 8-10%
+Cutback Pattern:
+
+Every 3-4 weeks: Reduce 10-20%
+Preserves frequency, reduces volume
+Allows recovery and adaptation
+C. Anti-Repetition Rule
+Non-long-run days must have unique distances
+If collision after rounding: Adjust by ±0.5 unit
+Avoid identical distances on consecutive days
+Re-balance to preserve weekly total and long run ratio
+9. LONG RUN PROGRESSION TO RACE DISTANCE
+A. Gradual Build Formula
+total_increase = race_distance - week_1_long_run
+weeks_to_build = N - 1
+progress_ratio = (W - 1) / (N - 1)
+long_run_W = week_1_long_run + (total_increase × progress_ratio)
+B. Peak Long Run Targets
+Marathon:
+
+Beginner: 30-32 km (18-20 mi)
+Intermediate: 32-35 km (20-22 mi)
+Advanced: 35-38 km (22-24 mi)
+Elite: 38-42 km (24-26 mi)
+Half Marathon:
+
+Beginner: 18-20 km (11-12 mi)
+Intermediate: 20-22 km (12-13 mi)
+Advanced: 22-24 km (13-15 mi)
+Elite: 24-26 km (15-16 mi)
+C. Final Week = Race Distance
+Week N long run: EXACT race distance
+Marathon: 42.2 km / 26.2 mi
+Half Marathon: 21.1 km / 13.1 mi
+5K: 5.0 km / 3.1 mi
+10K: 10.0 km / 6.2 mi
+Labeled as workout_type: "Race"
+10. TAPERING LOGIC
+A. Taper Timeline (Final 1-3 Weeks)
+Week N (Race Week):
+
+40-50% of peak weekly mileage
+Long run: Race day itself (full distance)
+Mid-week: Very short easy runs (3-5 km / 2-3 mi)
+Include 1-2 short shakeout runs with strides
+Week N-1:
+
+60-70% of peak weekly mileage
+Long run: 50-60% of peak long run
+MAX: 12-14 km / 8-9 miles for marathon
+⚠️ NEVER 20+ miles (32+ km) this week
+Include 1 short tempo or intervals for sharpness
+Week N-2 (if duration allows):
+
+75-85% of peak weekly mileage
+Long run: 70-75% of peak long run
+MAX: 16-18 km / 10-11 miles for marathon
+LAST substantial long run before race
+B. Taper Principles
+✅ Maintain workout frequency (same number of days)
+✅ Reduce distance, not intensity
+✅ Keep some quality work (short tempo/strides)
+✅ Prioritize recovery and freshness
+❌ No new workouts or experiments
+11. INTENSITY VALIDATION SYSTEM
+A. Allowed Intensity Values
+"Recovery"
+"Easy"
+"Long Easy"
+"Steady"
+"Tempo"
+"Intervals/VO2"
+"Goal-pace"
+"Rest"
+❌ NOT "Hard" (banned label)
+B. Validation Rules
+Pace-Based Validation:
+
+actual_pace = (duration × 60) / distance
+pace_diff = actual_pace - goal_pace
+
+if (pace_diff > 90 sec) → "Recovery" or "Easy"
+if (pace_diff > 60 sec) → "Easy"
+if (pace_diff > 30 sec) → "Easy" or "Tempo"
+if (pace_diff > 15 sec) → "Threshold" or "Goal Pace"
+if (pace_diff ≥ -5 sec) → "Goal Pace"
+if (pace_diff < -5 sec) → "Intervals" or "VO2max"
+Distance-Based Rules:
+
+Workout < 2.0 mi or < 3.0 km → Must be "Recovery" or "Easy"
+Long run ≥ 15 km or ≥ 10 mi → Must be "Long Easy"
+12. SPECIAL CASES & OVERRIDES
+A. True Beginner Override (0/0 Condition)
+Definition: weekly_mileage = 0 AND longest_run = 0
+
+Week 1 Adjustments:
+
+First workout: 1.0-2.0 km or 1.0 mi (very gentle start)
+Long run: DISABLED in Week 1
+Total distance floor:
+km: 4.0-6.0 km (use 5.0 km midpoint)
+miles: 2.5-4.0 mi (use 3.0 mi midpoint)
+All sessions: Easy/Recovery only
+Resumes normal progression from Week 2
+B. Elite/Advanced with 0 Mileage
+NOT treated as beginners:
+
+Assumed to be experienced athletes starting fresh cycle
+Week 1: 30-50 km (20-30 miles) total
+Individual workouts: 8-12 km (5-8 miles)
+NOT beginner-level 5-10 km total
+C. Beginner Safety Caps (No Running Base)
+Maximum Per Workout (Week 1):
+
+Beginner: 3 km / 2 mi
+Intermediate (no base): 5 km / 3 mi
+Advanced (no base): 8 km / 5 mi
+Maximum Weekly Total (Week 1):
+
+Beginner: 12 km / 8 mi
+Intermediate (no base): 20 km / 12 mi
+Advanced (no base): 30 km / 20 mi
+13. HELPER FUNCTIONS
+A. Core Calculations
+calculatePaceZones(): Computes all pace zones from goal time
+calculateDurationFromRaceDate(): Works backwards from race date
+determineRestDayRequirements(): Experience-based rest needs
+calculateBMI(): From height/weight
+parseGoalPace(): Converts time string to seconds per unit
+roundDistance(): Rounds to nearest 0.5 unit
+B. Validation Functions
+validateAndFixIntensity(): Ensures intensity matches actual pace
+validateTrainingPlan(): Checks 10% rule, long run caps
+fixFirstWorkoutDistance(): Prevents beginner injury
+fixDuplicateDistances(): Enforces anti-repetition rule
+adjustStartDate(): Aligns start with training days
+C. Data Processing
+updateWeeklyTotals(): Sums workout distances
+getMaxLongRunDistance(): Experience/plan-based caps
+calculateExpectedDuration(): Experience/BMI-based duration
+14. API ENDPOINTS
+1. POST /generate-plan
+Generates Week 1 only (fast)
+Returns plan_id for later retrieval
+Includes pace zones and rest day recommendations
+2. POST /get-remaining-plan
+Uses plan_id to generate complete plan
+All weeks 2 through N
+Includes tapering and full analysis
+3. POST /calculate-pace-zones (NEW)
+Standalone pace calculation
+Returns all 7 pace zones with descriptions
+4. POST /calculate-plan-duration (NEW)
+Calculates weeks between start and race date
+Validates against min/max weeks
+5. POST /validate-rest-days (NEW)
+Checks rest day requirements
+Returns warnings if insufficient rest
+6. GET /health
+API health check
+7. GET /plan-status/:plan_id
+Check if plan exists
+Get basic plan info
+15. AI PROMPT ENGINEERING
+A. FIRST_WEEK_PROMPT (~500 lines)
+Key Instructions:
+
+Generate ONLY Week 1 workouts
+Apply all normalization rules
+Follow week calculation logic
+Implement first workout day safety rule
+Include pace_guide object
+Round all distances to 0.5
+Apply experience-based caps
+No back-to-back hard workouts
+B. REMAINING_WEEKS_PROMPT (~800 lines)
+Key Instructions:
+
+Generate weeks 2 through N
+Include ALL specific_days from Week 2 onwards
+ALWAYS include long run on long_run_day (Week 2+)
+Implement tapering in final 1-3 weeks
+Progressive long run to race distance
+Intelligent rest day placement
+Workout sequencing rules
+Race day as final long run
+16. OUTPUT FORMAT
+A. Week 1 Response
+{
+  "success": true,
+  "plan_type": "marathon",
+  "duration": 12,
+  "target_distance": 45.5,
+  "description": "32-year-old male, 5'11\", 180 lbs. BMI 25.1 (Overweight)...",
+  "pace_guide": {
+    "easy": "6:15-6:45 min/km - Conversational pace",
+    "tempo": "5:30-5:45 min/km - Comfortably hard",
+    ...
+  },
+  "weekly_plans": [{
+    "week_number": 1,
+    "week_focus": "Base training",
+    "start_date": "2025-10-15",
+    "end_date": "2025-10-21",
+    "total_weekly_distance": 45.5,
+    "workouts": [...]
+  }],
+  "has_more_weeks": true,
+  "plan_id": "4d12bdda51ed40eb8917",
+  "generated_at": "2025-10-15T10:00:00Z"
+}
+B. Complete Plan Response
+{
+  "success": true,
+  "recommended_plan": {
+    "plan_name": "Marathon (42.2 km)",
+    "duration": 12,
+    "target_distance": 520.5,
+    "description": "...",
+    "why_recommended": "...",
+    "weekly_plans": [
+      { week 1 },
+      { week 2 },
+      ...
+      { week 12 with race day }
+    ],
+    "validation_warnings": [...]
+  },
+  "has_more_weeks": false,
+  "plan_id": "4d12bdda51ed40eb8917",
+  "completed_at": "2025-10-15T10:05:00Z"
+}
+17. VALIDATION & SAFETY CHECKS
+A. 10% Rule Validation
+Checks week-to-week mileage increases
+Flags increases > 10.5%
+Allows decreases (cutback weeks)
+Severity: MEDIUM
+B. Long Run Cap Validation
+Checks against experience-based maximums
+Skips final week (race day)
+Severity: HIGH
+C. Nonzero Distance/Duration
+Every workout must have distance > 0 (except Rest)
+Duration computed from distance × pace
+Minimum durations by experience:
+Beginner: 15 min
+Intermediate: 20 min
+Advanced/Elite: 25 min
+This is the complete logic architecture of your 365-run-api project. It's a sophisticated AI-powered training plan generator that considers experience level, BMI, course profile, race dates, and implements intelligent workout sequencing, rest day logic, tapering, and progressive long run building—all while maintaining safety through extensive validation and auto-fix mechanisms.
