@@ -2,7 +2,19 @@
 
 This project provides an AI-powered API for generating personalized running plans — including the first week or full multi-week training schedules — based on user inputs like experience, race goal, and running history.
 
-## ✨ New Features (v2.0)
+## ✨ New Features (v2.1)
+
+### 🏃‍♂️ 5K/10K Plan Constraints & Progressive Training
+- **Distance Limits**: 
+  - 5K Plans: Maximum 5.0 km (3.1 miles) for ANY workout
+  - 10K Plans: Maximum 10.0 km (6.2 miles) for ANY workout
+  - Minimum distance: 0.5 km (500 meters) or 0.3 miles for all workouts
+- **Walking → Jogging → Running Progression** for Beginner/Intermediate 5K/10K plans:
+  - Week 1-2: Walking workouts (brisk walking pace, 8-10 min/km)
+  - Week 3-4: Walk-Jog intervals (alternating walking and light jogging)
+  - Week 5+: Easy Jogging to Running progression
+- **New Workout Types**: 'Walk', 'Walk-Jog', 'Easy Jog' for progressive training
+- **Automatic Enforcement**: System automatically applies constraints and progression based on plan type and experience level
 
 ### 🎯 Intelligent Workout Sequencing
 - **No back-to-back hard efforts**: System automatically spaces out Tempo, Intervals, and Long Runs with Easy/Recovery days
@@ -16,6 +28,14 @@ This project provides an AI-powered API for generating personalized running plan
   - Advanced/Elite: Rest days optional, can train 7 days
 - **Intelligent rest placement**: Rest days scheduled after hardest workouts (intervals, tempo, or long run)
 - **Separate from training days**: If you select 6 training days, you train 6 days and rest 1 day (not rest on one of the 6)
+
+### 🔄 Recovery Runs After Long Runs
+- **Automatic recovery scheduling**: Recovery runs are automatically scheduled the day after every long run
+- **🚫 First day protection**: The first workout day is NEVER a recovery run - ensures proper training progression
+- **Smart distance calculation**: Recovery runs are 30-50% of the long run distance (minimum 2km/1.5mi)
+- **Optimal recovery pacing**: Very easy pace (7:30-8:30 min/km or 12:00-13:30 min/mi)
+- **Intelligent workout conversion**: Existing hard workouts (Tempo, Intervals) are converted to recovery runs when scheduled after long runs
+- **Training day awareness**: Only schedules recovery runs if the day after the long run is in your selected training days
 
 ### 📉 Tapering Before Races
 - **Automatic taper implementation**: Final 1-3 weeks before race day
@@ -90,15 +110,22 @@ Generates the first week of training plan with intelligent workout sequencing, r
 }
 ```
 
-**New Fields:**
-- `race_date`: (Optional) Target race date - API will calculate duration to end on this date
-- `plan_end_date`: (Optional) Alternative to race_date
+**New Fields for 5K/10K Plans:**
+- Automatic distance constraint enforcement (no input required)
+- Progressive workout types based on experience level
+- Walking/jogging progression for beginners and intermediates
+
+**Workout Types by Plan:**
+- **Marathon/Half Marathon**: 'Easy Run', 'Recovery Run', 'Long Run', 'Tempo Run', 'Interval Run', 'Race', 'Rest'
+- **5K/10K Beginner/Intermediate**: 'Walk', 'Walk-Jog', 'Easy Jog', 'Easy Run', 'Recovery Run', 'Long Run', 'Rest'
+- **5K/10K Advanced/Elite**: Standard workout types (same as Marathon/Half Marathon)
 
 **Response includes:**
 - Week 1 workouts with pace ranges
 - Intelligent rest day placement
 - No back-to-back hard efforts
 - Plan duration calculated from race date (if provided)
+- **NEW**: Automatic 5K/10K distance limits and progressive workout types
 
 ---
 
@@ -270,7 +297,65 @@ Check if a plan ID exists and get basic information.
 
 ---
 
+### 8. Test Recovery Runs (NEW)
+
+**Endpoint:**
+```
+POST http://0.0.0.0:8000/test-recovery-runs
+```
+
+**Description:**
+Test endpoint to demonstrate the recovery run functionality. Shows how recovery runs are automatically added after long runs.
+
+**Sample Request Body:**
+```json
+{
+  "plan_data": {
+    "weekly_plans": [
+      {
+        "week_number": 1,
+        "workouts": [
+          {
+            "day": "Saturday",
+            "workout_type": "Long Run",
+            "distance": 10,
+            "duration": 70,
+            "intensity": "Long Easy"
+          }
+        ]
+      }
+    ]
+  },
+  "specific_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  "measurement_unit": "km"
+}
+```
+
+**Sample Response:**
+```json
+{
+  "success": true,
+  "message": "Recovery runs added successfully",
+  "original_plan": { ... },
+  "updated_plan": { ... },
+  "changes_made": {
+    "recovery_runs_added": true,
+    "specific_days": ["Monday", "Tuesday", ...],
+    "measurement_unit": "km"
+  }
+}
+```
+
+---
+
 ## 📊 Key Features
+
+### 5K/10K Plan Constraints (NEW)
+- ✅ Absolute maximum distance limits (5K: 5.0km max, 10K: 10.0km max)
+- ✅ Minimum distance enforcement (0.5km/0.3mi minimum)
+- ✅ Walking → Jogging → Running progression for beginners
+- ✅ Progressive workout types: Walk, Walk-Jog, Easy Jog, Easy Run
+- ✅ Experience-based progression timing
 
 ### Workout Sequencing Rules
 - ✅ Easy/Recovery runs between hard efforts
