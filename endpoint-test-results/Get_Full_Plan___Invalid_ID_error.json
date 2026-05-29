@@ -1,0 +1,13 @@
+{
+  "endpoint": "Get Full Plan - Invalid ID",
+  "method": "POST",
+  "path": "/get-remaining-plan",
+  "payload": {
+    "plan_id": "invalid-plan-id"
+  },
+  "error": {
+    "error": "Plan ID not found"
+  },
+  "status": 404,
+  "timestamp": "2026-01-28T08:45:11.736Z"
+}

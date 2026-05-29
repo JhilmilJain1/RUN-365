@@ -1,0 +1,23 @@
+{
+  "endpoint": "Plan Duration - Custom Range",
+  "method": "POST",
+  "path": "/calculate-plan-duration",
+  "payload": {
+    "start_date": "2025-02-01",
+    "race_date": "2025-05-01",
+    "min_weeks": 10,
+    "max_weeks": 14
+  },
+  "response": {
+    "success": true,
+    "start_date": "2025-02-01",
+    "race_date": "2025-05-01",
+    "calculated_duration_weeks": 13,
+    "total_days": 89,
+    "min_weeks_allowed": 10,
+    "max_weeks_allowed": 14,
+    "notes": "Duration is within recommended range."
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.603Z"
+}

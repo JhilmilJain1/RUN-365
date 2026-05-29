@@ -1,0 +1,16 @@
+{
+  "endpoint": "Pace Zones - Invalid Data",
+  "method": "POST",
+  "path": "/calculate-pace-zones",
+  "payload": {
+    "goal_race_time": "invalid",
+    "race_distance": 42.2,
+    "experience": "Intermediate",
+    "measurement_unit": "km"
+  },
+  "error": {
+    "error": "Invalid input for pace calculation"
+  },
+  "status": 400,
+  "timestamp": "2026-01-28T08:45:11.589Z"
+}

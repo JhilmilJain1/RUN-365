@@ -1,0 +1,35 @@
+{
+  "endpoint": "Pace Zones - Marathon KM",
+  "method": "POST",
+  "path": "/calculate-pace-zones",
+  "payload": {
+    "goal_race_time": "3:30:00",
+    "race_distance": 42.2,
+    "experience": "Intermediate",
+    "measurement_unit": "km"
+  },
+  "response": {
+    "success": true,
+    "pace_zones": {
+      "goal_pace": "4:59 min/km",
+      "easy": "5:59-6:14 min/km",
+      "long": "5:44-5:59 min/km",
+      "tempo": "5:18-5:29 min/km",
+      "threshold": "5:09-5:18 min/km",
+      "intervals": "4:44-4:54 min/km",
+      "recovery": "6:29-6:59 min/km"
+    },
+    "measurement_unit": "km",
+    "experience": "Intermediate",
+    "notes": {
+      "easy": "Conversational pace, should be able to talk in full sentences",
+      "long": "Comfortable, sustainable pace for long distances",
+      "tempo": "Comfortably hard, sustainable for 45-75 minutes",
+      "threshold": "Hard but controlled, race pace effort",
+      "intervals": "Hard effort with recovery periods between",
+      "recovery": "Very easy, active recovery pace"
+    }
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.569Z"
+}

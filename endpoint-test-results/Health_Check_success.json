@@ -1,0 +1,17 @@
+{
+  "endpoint": "Health Check",
+  "method": "GET",
+  "path": "/health",
+  "payload": null,
+  "response": {
+    "status": "healthy",
+    "timestamp": "2026-01-28T08:45:11.548Z",
+    "api_status": {
+      "mock_mode": true,
+      "openai_configured": true,
+      "openai_validated": true
+    }
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.553Z"
+}

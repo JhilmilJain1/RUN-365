@@ -1,0 +1,13 @@
+{
+  "endpoint": "Rest Days - Missing Data",
+  "method": "POST",
+  "path": "/validate-rest-days",
+  "payload": {
+    "experience": "Beginner"
+  },
+  "error": {
+    "error": "Missing required fields: experience and training_days"
+  },
+  "status": 400,
+  "timestamp": "2026-01-28T08:45:11.621Z"
+}

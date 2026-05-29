@@ -1,0 +1,11 @@
+{
+  "endpoint": "Plan Status - Invalid ID",
+  "method": "GET",
+  "path": "/plan-status/invalid-plan-id",
+  "payload": null,
+  "error": {
+    "error": "Plan ID not found"
+  },
+  "status": 404,
+  "timestamp": "2026-01-28T08:45:11.747Z"
+}

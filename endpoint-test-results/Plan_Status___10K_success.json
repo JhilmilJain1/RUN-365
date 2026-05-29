@@ -1,0 +1,15 @@
+{
+  "endpoint": "Plan Status - 10K",
+  "method": "GET",
+  "path": "/plan-status/812c9fb6-ffc3-4e5b-bc58-05018e3a7c88",
+  "payload": null,
+  "response": {
+    "plan_id": "812c9fb6-ffc3-4e5b-bc58-05018e3a7c88",
+    "total_weeks": 6,
+    "generated_at": "2026-01-28T08:45:11.644Z",
+    "has_remaining_weeks": true,
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.744Z"
+}

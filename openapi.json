@@ -1,0 +1,210 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "365 Run Training Plan API",
+    "description": "Personalized running training plan generation and helpers.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Current host (default PORT 8000)"
+    }
+  ],
+  "tags": [
+    { "name": "Plans", "description": "Plan generation" },
+    { "name": "Utilities", "description": "Pace, duration, rest-day helpers" },
+    { "name": "System", "description": "Health and metadata" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "healthy" },
+                    "timestamp": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plan-status/{plan_id}": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Plan session status",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plan found in memory",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "404": { "description": "Plan ID not found" }
+        }
+      }
+    },
+    "/generate-plan": {
+      "post": {
+        "tags": ["Plans"],
+        "summary": "Generate first week",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "User profile and plan preferences (see prompts in server for full field list).",
+                "additionalProperties": true
+              },
+              "example": {
+                "running_experience": "Intermediate",
+                "plan_name": "Marathon",
+                "measurement_unit": "km",
+                "start_date": "2026-05-01",
+                "specific_days": "Monday, Wednesday, Friday, Saturday",
+                "long_run_day": "Saturday",
+                "days_per_week": 4,
+                "weekly_mileage_past_4_weeks": "30-40",
+                "longest_run_past_4_weeks": "18 km"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "First week plan JSON",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/get-remaining-plan": {
+      "post": {
+        "tags": ["Plans"],
+        "summary": "Get full plan (weeks 2+ merged with stored week 1)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["plan_id"],
+                "properties": {
+                  "plan_id": { "type": "string", "description": "ID returned from /generate-plan" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Complete plan JSON",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          },
+          "404": { "description": "Plan ID not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/calculate-pace-zones": {
+      "post": {
+        "tags": ["Utilities"],
+        "summary": "Calculate pace zones",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["goal_race_time", "race_distance"],
+                "properties": {
+                  "goal_race_time": { "type": "string", "example": "4:15:00" },
+                  "race_distance": { "type": "number", "example": 42.2 },
+                  "experience": { "type": "string" },
+                  "measurement_unit": { "type": "string", "enum": ["km", "miles"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Pace zones", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "description": "Bad request" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/calculate-plan-duration": {
+      "post": {
+        "tags": ["Utilities"],
+        "summary": "Weeks between start and race date",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["start_date", "race_date"],
+                "properties": {
+                  "start_date": { "type": "string", "format": "date" },
+                  "race_date": { "type": "string", "format": "date" },
+                  "min_weeks": { "type": "integer" },
+                  "max_weeks": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Duration info", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "description": "Bad request" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/validate-rest-days": {
+      "post": {
+        "tags": ["Utilities"],
+        "summary": "Rest-day rules for experience + training days",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["experience", "training_days"],
+                "properties": {
+                  "experience": { "type": "string" },
+                  "training_days": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Requirements", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "description": "Bad request" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  }
+}

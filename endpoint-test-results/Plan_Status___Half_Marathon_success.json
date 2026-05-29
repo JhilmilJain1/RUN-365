@@ -1,0 +1,15 @@
+{
+  "endpoint": "Plan Status - Half Marathon",
+  "method": "GET",
+  "path": "/plan-status/f67df2a0-4afd-47b1-a564-04823b453866",
+  "payload": null,
+  "response": {
+    "plan_id": "f67df2a0-4afd-47b1-a564-04823b453866",
+    "total_weeks": 16,
+    "generated_at": "2026-01-28T08:45:11.630Z",
+    "has_remaining_weeks": true,
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.741Z"
+}

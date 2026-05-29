@@ -1,0 +1,110 @@
+{
+  "endpoint": "Generate Plan - Half Marathon",
+  "method": "POST",
+  "path": "/generate-plan",
+  "payload": {
+    "plan_name": "Half Marathon",
+    "plan_type": "half marathon",
+    "measurement_unit": "miles",
+    "running_experience": "Beginner",
+    "start_date": "2025-02-01T09:00:00Z",
+    "specific_days": "Tuesday,Thursday,Saturday,Sunday",
+    "long_run_day": "Sunday",
+    "days_per_week": 4,
+    "min_weeks_plan": 12,
+    "max_week_plans": 16,
+    "estimated_race_time": "2:00:00",
+    "weekly_mileage_past_4_weeks": "20-25",
+    "longest_run_past_4_weeks": "10",
+    "course_profile": "Rolling Hills",
+    "age": 28,
+    "gender": "female",
+    "height": "5'6\"",
+    "weight": "140 lbs"
+  },
+  "response": {
+    "success": true,
+    "plan_id": "f67df2a0-4afd-47b1-a564-04823b453866",
+    "plan_type": "half marathon",
+    "duration": 16,
+    "target_distance": 13,
+    "description": "28-year-old female, 5'6\", 140 lbs. This 16-week half marathon plan is tailored for beginner runners. [MOCK DATA - Replace with valid OpenAI API key for real plans]",
+    "pace_guide": {
+      "easy": "6:30-7:00 min/mi - Conversational pace",
+      "recovery": "7:00-7:30 min/mi - Very easy, active recovery",
+      "long": "6:15-6:45 min/mi - Comfortable, sustainable",
+      "tempo": "5:45-6:00 min/mi - Comfortably hard",
+      "threshold": "5:30-5:45 min/mi - Hard but controlled",
+      "intervals": "5:00-5:15 min/mi - Hard effort",
+      "goal_pace": "5:30 min/mi - Target race pace"
+    },
+    "weekly_plans": [
+      {
+        "week_number": 1,
+        "week_focus": "Base building",
+        "start_date": "2025-02-01",
+        "end_date": "2025-02-07",
+        "total_weekly_distance": 13,
+        "user_distance": 0,
+        "user_time": 0,
+        "workouts": [
+          {
+            "day": "Tuesday",
+            "date": "2025-01-28",
+            "workout_type": "Easy Run",
+            "distance": 3,
+            "duration": 33,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/mi",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Thursday",
+            "date": "2025-01-30",
+            "workout_type": "Easy Run",
+            "distance": 3,
+            "duration": 33,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/mi",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Saturday",
+            "date": "2025-02-01",
+            "workout_type": "Easy Run",
+            "distance": 3,
+            "duration": 33,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/mi",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Sunday",
+            "date": "2025-02-02",
+            "workout_type": "Long Run",
+            "distance": 4,
+            "duration": 44,
+            "intensity": "Long Easy",
+            "pace_range": "6:15-6:45 min/mi",
+            "description": "Long run at comfortable, sustainable pace. Focus on time on feet.",
+            "user_distance": 0,
+            "user_time": 0
+          }
+        ]
+      }
+    ],
+    "has_more_weeks": true,
+    "total_weeks": 16,
+    "remaining_weeks": 15,
+    "generated_at": "2026-01-28T08:45:11.630Z",
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.634Z"
+}

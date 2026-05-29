@@ -1,0 +1,23 @@
+{
+  "endpoint": "Rest Days - Beginner 5 Days",
+  "method": "POST",
+  "path": "/validate-rest-days",
+  "payload": {
+    "experience": "Beginner",
+    "training_days": 5
+  },
+  "response": {
+    "success": true,
+    "experience": "Beginner",
+    "training_days": 5,
+    "rest_day_requirements": {
+      "required_rest_days": 0,
+      "recommended_rest_days": 0,
+      "allow_all_seven_days": true,
+      "warning": null
+    },
+    "recommendation": "Rest day schedule is appropriate for your experience level."
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.609Z"
+}

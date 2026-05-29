@@ -1,0 +1,9 @@
+{
+  "endpoint": "Invalid Endpoint",
+  "method": "GET",
+  "path": "/invalid-endpoint",
+  "payload": null,
+  "error": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /invalid-endpoint</pre>\n</body>\n</html>\n",
+  "status": 404,
+  "timestamp": "2026-01-28T08:45:11.752Z"
+}

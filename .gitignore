@@ -111,3 +111,7 @@ public
 # Temporary folders
 tmp/
 temp/
+
+# Binaries and local tools
+ngrok.exe
+ngrok

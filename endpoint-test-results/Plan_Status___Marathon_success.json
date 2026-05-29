@@ -1,0 +1,15 @@
+{
+  "endpoint": "Plan Status - Marathon",
+  "method": "GET",
+  "path": "/plan-status/f0c821a0-2af7-4a02-9b5b-2144db1771ef",
+  "payload": null,
+  "response": {
+    "plan_id": "f0c821a0-2af7-4a02-9b5b-2144db1771ef",
+    "total_weeks": 14,
+    "generated_at": "2026-01-28T08:45:11.624Z",
+    "has_remaining_weeks": true,
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.739Z"
+}

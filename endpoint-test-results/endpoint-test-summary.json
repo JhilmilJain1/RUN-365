@@ -1,0 +1,261 @@
+{
+  "timestamp": "2026-01-28T08:45:11.758Z",
+  "baseUrl": "http://localhost:8000",
+  "totalTests": 32,
+  "passed": 24,
+  "failed": 8,
+  "successRate": "75.0",
+  "endpointSummary": {
+    "Health Check": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Pace Zones - Marathon KM": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Pace Zones - Half Marathon Miles": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Pace Zones - 5K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Pace Zones - 10K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Pace Zones - Invalid Data": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Pace Zones - Missing Data": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Plan Duration - Short": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Duration - Long": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Duration - Custom Range": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Duration - Missing Data": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Rest Days - Beginner 5 Days": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Rest Days - Intermediate 6 Days": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Rest Days - Advanced 7 Days": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Rest Days - Elite 7 Days": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Rest Days - Missing Data": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Generate Plan - Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Generate Plan - Half Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Generate Plan - 5K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Generate Plan - 10K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Get Full Plan - Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Get Full Plan - Half Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Get Full Plan - 5K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Get Full Plan - 10K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Get Full Plan - Invalid ID": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Plan Status - Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Status - Half Marathon": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Status - 5K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Status - 10K": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "Plan Status - Invalid ID": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Invalid Endpoint": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "Invalid Method": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1
+    }
+  },
+  "errors": [
+    {
+      "endpoint": "Pace Zones - Invalid Data",
+      "method": "POST",
+      "path": "/calculate-pace-zones",
+      "payload": {
+        "goal_race_time": "invalid",
+        "race_distance": 42.2,
+        "experience": "Intermediate",
+        "measurement_unit": "km"
+      },
+      "error": {
+        "error": "Invalid input for pace calculation"
+      },
+      "status": 400
+    },
+    {
+      "endpoint": "Pace Zones - Missing Data",
+      "method": "POST",
+      "path": "/calculate-pace-zones",
+      "payload": {
+        "goal_race_time": "3:30:00"
+      },
+      "error": {
+        "error": "Missing required fields: goal_race_time and race_distance"
+      },
+      "status": 400
+    },
+    {
+      "endpoint": "Plan Duration - Missing Data",
+      "method": "POST",
+      "path": "/calculate-plan-duration",
+      "payload": {
+        "start_date": "2025-02-01"
+      },
+      "error": {
+        "error": "Missing required fields: start_date and race_date"
+      },
+      "status": 400
+    },
+    {
+      "endpoint": "Rest Days - Missing Data",
+      "method": "POST",
+      "path": "/validate-rest-days",
+      "payload": {
+        "experience": "Beginner"
+      },
+      "error": {
+        "error": "Missing required fields: experience and training_days"
+      },
+      "status": 400
+    },
+    {
+      "endpoint": "Get Full Plan - Invalid ID",
+      "method": "POST",
+      "path": "/get-remaining-plan",
+      "payload": {
+        "plan_id": "invalid-plan-id"
+      },
+      "error": {
+        "error": "Plan ID not found"
+      },
+      "status": 404
+    },
+    {
+      "endpoint": "Plan Status - Invalid ID",
+      "method": "GET",
+      "path": "/plan-status/invalid-plan-id",
+      "payload": null,
+      "error": {
+        "error": "Plan ID not found"
+      },
+      "status": 404
+    },
+    {
+      "endpoint": "Invalid Endpoint",
+      "method": "GET",
+      "path": "/invalid-endpoint",
+      "payload": null,
+      "error": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /invalid-endpoint</pre>\n</body>\n</html>\n",
+      "status": 404
+    },
+    {
+      "endpoint": "Invalid Method",
+      "method": "DELETE",
+      "path": "/health",
+      "payload": null,
+      "error": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot DELETE /health</pre>\n</body>\n</html>\n",
+      "status": 404
+    }
+  ]
+}

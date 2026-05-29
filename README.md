@@ -1,402 +1,270 @@
-# 🏃‍♂️ Marathon Training Plan API
+# RUN-365
 
-This project provides an AI-powered API for generating personalized running plans — including the first week or full multi-week training schedules — based on user inputs like experience, race goal, and running history.
+**AI-powered personalized running training plan API**
 
-## ✨ New Features (v2.1)
-
-### 🏃‍♂️ 5K/10K Plan Constraints & Progressive Training
-- **Distance Limits**: 
-  - 5K Plans: Maximum 5.0 km (3.1 miles) for ANY workout
-  - 10K Plans: Maximum 10.0 km (6.2 miles) for ANY workout
-  - Minimum distance: 0.5 km (500 meters) or 0.3 miles for all workouts
-- **Walking → Jogging → Running Progression** for Beginner/Intermediate 5K/10K plans:
-  - Week 1-2: Walking workouts (brisk walking pace, 8-10 min/km)
-  - Week 3-4: Walk-Jog intervals (alternating walking and light jogging)
-  - Week 5+: Easy Jogging to Running progression
-- **New Workout Types**: 'Walk', 'Walk-Jog', 'Easy Jog' for progressive training
-- **Automatic Enforcement**: System automatically applies constraints and progression based on plan type and experience level
-
-### 🎯 Intelligent Workout Sequencing
-- **No back-to-back hard efforts**: System automatically spaces out Tempo, Intervals, and Long Runs with Easy/Recovery days
-- **Optimal recovery patterns**: Hard workouts are separated by 2-3 days when possible
-- **Smart workout placement**: Never schedules intervals the day before a long run
-
-### 🛌 Smart Rest Day Logic
-- **Experience-based rest requirements**: 
-  - Beginners: Required 1 rest day per week
-  - Intermediate: Recommended 1 rest day (optional)
-  - Advanced/Elite: Rest days optional, can train 7 days
-- **Intelligent rest placement**: Rest days scheduled after hardest workouts (intervals, tempo, or long run)
-- **Separate from training days**: If you select 6 training days, you train 6 days and rest 1 day (not rest on one of the 6)
-
-### 🔄 Recovery Runs After Long Runs
-- **Automatic recovery scheduling**: Recovery runs are automatically scheduled the day after every long run
-- **🚫 First day protection**: The first workout day is NEVER a recovery run - ensures proper training progression
-- **Smart distance calculation**: Recovery runs are 30-50% of the long run distance (minimum 2km/1.5mi)
-- **Optimal recovery pacing**: Very easy pace (7:30-8:30 min/km or 12:00-13:30 min/mi)
-- **Intelligent workout conversion**: Existing hard workouts (Tempo, Intervals) are converted to recovery runs when scheduled after long runs
-- **Training day awareness**: Only schedules recovery runs if the day after the long run is in your selected training days
-
-### 📉 Tapering Before Races
-- **Automatic taper implementation**: Final 1-3 weeks before race day
-- **Progressive volume reduction**:
-  - Week N-2: 75-85% of peak mileage
-  - Week N-1: 60-70% of peak mileage
-  - Week N (race week): 40-50% of peak mileage
-- **Maintains sharpness**: Keeps workout frequency but reduces distance, includes short tempo/strides
-
-### 📅 Race Date / Plan End Date
-- **Set your race date**: API calculates optimal plan duration to end on race day
-- **Automatic duration calculation**: Works backwards from race date to determine training weeks
-- **Proper taper included**: Ensures adequate taper period before race day
-
-### ⏱️ Workout Pacing Recommendations
-- **Detailed pace zones**: Every workout includes specific pace ranges (e.g., "6:15-6:45 min/km")
-- **Experience-adjusted paces**: Beginners get slower, more conservative paces
-- **Effort-based guidance**: Includes perceived exertion descriptions ("conversational pace", "comfortably hard")
-- **Structured workout details**: Tempo and interval workouts include warmup/cooldown structure
+RUN-365 is a Node.js REST API that generates customized running training plans for **5K**, **10K**, **Half Marathon**, and **Marathon** races. It uses OpenAI to build week-by-week schedules tailored to a runner's experience, goals, available training days, and race date — with built-in rules for rest days, recovery runs, tapering, and pace zones.
 
 ---
 
-## 🚀 Getting Started
+## What does this project do?
 
-### Run the Server
-To start the development server, use:
+Most running apps need a backend that turns user profile data into a structured training plan. RUN-365 handles that:
+
+1. **Collect runner details** — experience level, weekly mileage, goal race, training days, etc.
+2. **Generate Week 1 quickly** — returns the first week of workouts with dates, distances, paces, and workout types.
+3. **Generate the full plan** — uses the stored `plan_id` to build all remaining weeks, including progressive load and race-day taper.
+
+The API also includes helper endpoints for pace zones, plan duration, and rest-day validation — useful for form validation in a mobile or web app before generating a plan.
+
+---
+
+## How it works (high level)
+
+```
+┌─────────────┐     POST /generate-plan      ┌──────────────────┐
+│  Your App   │ ───────────────────────────► │   RUN-365 API    │
+│ (mobile/web)│                              │  (Express.js)    │
+└─────────────┘                              └────────┬─────────┘
+       ▲                                              │
+       │         Returns Week 1 + plan_id             │ OpenAI
+       │                                              ▼
+       │                                     ┌──────────────────┐
+       │     POST /get-remaining-plan        │  Plan generation │
+       └──────────────────────────────────── │  + post-processing│
+                 Returns full plan          └──────────────────┘
+```
+
+**Two-step plan flow**
+
+| Step | Endpoint | What you get |
+|------|----------|--------------|
+| 1 | `POST /generate-plan` | First week of workouts + a `plan_id` |
+| 2 | `POST /get-remaining-plan` | Complete multi-week plan (uses `plan_id`) |
+
+Plans are stored **in memory for 24 hours**. After that, the `plan_id` expires and you must generate a new plan.
+
+---
+
+## Supported race types
+
+| Plan | Distance |
+|------|----------|
+| 5K | 5 km / 3.1 mi |
+| 10K | 10 km / 6.2 mi |
+| Half Marathon | 21.1 km / 13.1 mi |
+| Marathon | 42.2 km / 26.2 mi |
+
+**Experience levels:** Beginner, Intermediate, Advanced, Elite
+
+---
+
+## Key features
+
+- **Personalized schedules** — training days, long run day, and weekly mileage inform each workout
+- **Smart workout sequencing** — no back-to-back hard efforts; recovery runs after long runs
+- **Rest day logic** — experience-based rest requirements and placement
+- **Race-day taper** — automatic volume reduction in the final 1–3 weeks
+- **Pace recommendations** — every workout includes target pace ranges
+- **5K/10K progression** — walk → jog → run progression for beginners and intermediates
+- **Utility endpoints** — pace zones, plan duration, and rest-day validation without calling OpenAI
+
+---
+
+## Project structure
+
+```
+RUN-365/
+├── README.md                 ← You are here
+├── server.js                 ← Main API server
+├── package.json              ← Dependencies and scripts
+├── openapi.json              ← OpenAPI 3.0 spec for all endpoints
+├── .env.example              ← Environment variable template
+├── comprehensive-test.js     ← Full endpoint test suite
+└── endpoint-test-results/    ← Sample API responses from tests
+```
+
+---
+
+## Prerequisites
+
+- **Node.js** 16 or higher
+- **OpenAI API key** with access to the models used by the server ([get one here](https://platform.openai.com/account/api-keys))
+
+---
+
+## Quick start
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
+git clone https://github.com/JhilmilJain1/RUN-365.git
+cd RUN-365
 ```
 
-The API will be available at:
-```
-http://0.0.0.0:8000
-```
+### 2. Install dependencies
 
----
-
-## 🧩 API Endpoints
-
-### 1. Generate Training Plan (First Week)
-
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/generate-plan
+```bash
+npm install
 ```
 
-**Description:**
-Generates the first week of training plan with intelligent workout sequencing, rest day logic, and pace recommendations.
+### 3. Configure environment variables
 
-**Sample Request Body:**
+Copy the example env file and add your OpenAI key:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+PORT=8000
+```
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `OPENAI_API_KEY` | Yes | Your OpenAI API key |
+| `PORT` | No | Server port (default: `8000`) |
+| `ALLOWED_ORIGINS` | No | Comma-separated CORS origins (default: `*`) |
+| `MOCK_MODE` | No | Set to `true` for testing without OpenAI |
+| `DEBUG_MODE` | No | Enable verbose logging |
+
+### 4. Start the server
+
+```bash
+node server.js
+```
+
+The API runs at `http://localhost:8000`.
+
+Verify it is running:
+
+```bash
+curl http://localhost:8000/health
+```
+
+Expected response:
+
 ```json
 {
-  "gender": "male",
-  "height": 73,
-  "weight": 132,
-  "plan_name": "Marathon",
-  "measurement_unit": "km",
-  "start_date": "2025-10-15T06:00:00.000Z",
-  "race_date": "2026-04-15T09:00:00.000Z",
-  "min_weeks_plan": 10,
-  "max_week_plans": 16,
-  "days_per_week": "6",
-  "specific_days": "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
-  "long_run_day": "Saturday",
-  "estimated_race_time": "4:30:00-5:00:00",
-  "weekly_mileage_past_4_weeks": "40-45",
-  "goal_race_time": "04:15:00",
-  "longest_run_past_4_weeks": "20 km",
-  "course_profile": "Rolling Hills",
-  "running_experience": "Intermediate"
-}
-```
-
-**New Fields for 5K/10K Plans:**
-- Automatic distance constraint enforcement (no input required)
-- Progressive workout types based on experience level
-- Walking/jogging progression for beginners and intermediates
-
-**Workout Types by Plan:**
-- **Marathon/Half Marathon**: 'Easy Run', 'Recovery Run', 'Long Run', 'Tempo Run', 'Interval Run', 'Race', 'Rest'
-- **5K/10K Beginner/Intermediate**: 'Walk', 'Walk-Jog', 'Easy Jog', 'Easy Run', 'Recovery Run', 'Long Run', 'Rest'
-- **5K/10K Advanced/Elite**: Standard workout types (same as Marathon/Half Marathon)
-
-**Response includes:**
-- Week 1 workouts with pace ranges
-- Intelligent rest day placement
-- No back-to-back hard efforts
-- Plan duration calculated from race date (if provided)
-- **NEW**: Automatic 5K/10K distance limits and progressive workout types
-
----
-
-### 2. Get Remaining Plan (Complete Plan)
-
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/get-remaining-plan
-```
-
-**Description:**
-Retrieves the complete training plan with all remaining weeks, including tapering logic and full pace recommendations.
-
-**Sample Request Body:**
-```json
-{
-  "plan_id": "4d12bdda51ed40eb8917"
-}
-```
-
-**Response includes:**
-- All weeks with progressive training
-- Automatic taper in final 1-3 weeks
-- Pace recommendations for every workout
-- Intelligent workout sequencing throughout
-- Rest days based on experience level
-
----
-
-### 3. Calculate Pace Zones (NEW)
-
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/calculate-pace-zones
-```
-
-**Description:**
-Calculate recommended pace zones based on goal race time and experience level.
-
-**Sample Request Body:**
-```json
-{
-  "goal_race_time": "04:15:00",
-  "race_distance": 42.2,
-  "experience": "Intermediate",
-  "measurement_unit": "km"
-}
-```
-
-**Sample Response:**
-```json
-{
-  "success": true,
-  "pace_zones": {
-    "goal_pace": "6:03 min/km",
-    "easy": "7:03-7:18 min/km",
-    "long": "6:53-7:08 min/km",
-    "tempo": "6:23-6:28 min/km",
-    "threshold": "6:13-6:23 min/km",
-    "intervals": "5:43-5:48 min/km",
-    "recovery": "7:33-8:03 min/km"
-  },
-  "notes": {
-    "easy": "Conversational pace, should be able to talk in full sentences",
-    "long": "Comfortable, sustainable pace for long distances",
-    "tempo": "Comfortably hard, sustainable for 45-75 minutes",
-    "threshold": "Hard but controlled, race pace effort",
-    "intervals": "Hard effort with recovery periods between",
-    "recovery": "Very easy, active recovery pace"
-  }
+  "status": "healthy",
+  "timestamp": "2026-05-29T12:00:00.000Z"
 }
 ```
 
 ---
 
-### 4. Calculate Plan Duration (NEW)
+## API endpoints
 
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/calculate-plan-duration
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Health check |
+| `GET` | `/plan-status/:plan_id` | Check if a plan exists in memory |
+| `POST` | `/generate-plan` | Generate Week 1 and receive a `plan_id` |
+| `POST` | `/get-remaining-plan` | Get the full plan using `plan_id` |
+| `POST` | `/calculate-pace-zones` | Compute pace zones from goal race time |
+| `POST` | `/calculate-plan-duration` | Calculate weeks between start and race date |
+| `POST` | `/validate-rest-days` | Validate rest-day rules for experience + training days |
 
-**Description:**
-Calculate optimal plan duration based on start date and race date.
-
-**Sample Request Body:**
-```json
-{
-  "start_date": "2025-10-15T06:00:00.000Z",
-  "race_date": "2026-04-15T09:00:00.000Z",
-  "min_weeks": 10,
-  "max_weeks": 20
-}
-```
-
-**Sample Response:**
-```json
-{
-  "success": true,
-  "start_date": "2025-10-15T06:00:00.000Z",
-  "race_date": "2026-04-15T09:00:00.000Z",
-  "calculated_duration_weeks": 16,
-  "total_days": 182,
-  "min_weeks_allowed": 10,
-  "max_weeks_allowed": 20,
-  "notes": "Duration is within recommended range."
-}
-```
+OpenAPI spec: [`openapi.json`](openapi.json)
 
 ---
 
-### 5. Validate Rest Days (NEW)
+## Example usage
 
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/validate-rest-days
-```
+### Generate the first week
 
-**Description:**
-Validate rest day requirements based on experience level and training days.
-
-**Sample Request Body:**
-```json
-{
-  "experience": "Beginner",
-  "training_days": 7
-}
-```
-
-**Sample Response:**
-```json
-{
-  "success": true,
-  "experience": "Beginner",
-  "training_days": 7,
-  "rest_day_requirements": {
-    "required_rest_days": 1,
-    "recommended_rest_days": 1,
-    "allow_all_seven_days": false,
-    "warning": "Beginners should include at least 1 rest day per week to prevent injury and allow recovery."
-  },
-  "recommendation": "Beginners should include at least 1 rest day per week to prevent injury and allow recovery."
-}
+```bash
+curl -X POST http://localhost:8000/generate-plan \
+  -H "Content-Type: application/json" \
+  -d '{
+    "running_experience": "Intermediate",
+    "plan_name": "Marathon",
+    "measurement_unit": "km",
+    "start_date": "2026-06-01",
+    "race_date": "2026-10-15",
+    "days_per_week": 4,
+    "specific_days": "Monday, Wednesday, Friday, Saturday",
+    "long_run_day": "Saturday",
+    "weekly_mileage_past_4_weeks": "30-40",
+    "longest_run_past_4_weeks": "18 km",
+    "goal_race_time": "04:15:00"
+  }'
 ```
 
----
+The response includes a `plan_id` — save it for the next step.
 
-### 6. Health Check
+### Get the complete plan
 
-**Endpoint:**
-```
-GET http://0.0.0.0:8000/health
-```
-
-**Description:**
-Check API health status.
-
----
-
-### 7. Plan Status
-
-**Endpoint:**
-```
-GET http://0.0.0.0:8000/plan-status/:plan_id
+```bash
+curl -X POST http://localhost:8000/get-remaining-plan \
+  -H "Content-Type: application/json" \
+  -d '{"plan_id": "YOUR_PLAN_ID_HERE"}'
 ```
 
-**Description:**
-Check if a plan ID exists and get basic information.
+### Calculate pace zones (no OpenAI call)
 
----
-
-### 8. Test Recovery Runs (NEW)
-
-**Endpoint:**
-```
-POST http://0.0.0.0:8000/test-recovery-runs
-```
-
-**Description:**
-Test endpoint to demonstrate the recovery run functionality. Shows how recovery runs are automatically added after long runs.
-
-**Sample Request Body:**
-```json
-{
-  "plan_data": {
-    "weekly_plans": [
-      {
-        "week_number": 1,
-        "workouts": [
-          {
-            "day": "Saturday",
-            "workout_type": "Long Run",
-            "distance": 10,
-            "duration": 70,
-            "intensity": "Long Easy"
-          }
-        ]
-      }
-    ]
-  },
-  "specific_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-  "measurement_unit": "km"
-}
-```
-
-**Sample Response:**
-```json
-{
-  "success": true,
-  "message": "Recovery runs added successfully",
-  "original_plan": { ... },
-  "updated_plan": { ... },
-  "changes_made": {
-    "recovery_runs_added": true,
-    "specific_days": ["Monday", "Tuesday", ...],
+```bash
+curl -X POST http://localhost:8000/calculate-pace-zones \
+  -H "Content-Type: application/json" \
+  -d '{
+    "goal_race_time": "04:15:00",
+    "race_distance": 42.2,
+    "experience": "Intermediate",
     "measurement_unit": "km"
-  }
-}
+  }'
 ```
 
 ---
 
-## 📊 Key Features
+## Testing
 
-### 5K/10K Plan Constraints (NEW)
-- ✅ Absolute maximum distance limits (5K: 5.0km max, 10K: 10.0km max)
-- ✅ Minimum distance enforcement (0.5km/0.3mi minimum)
-- ✅ Walking → Jogging → Running progression for beginners
-- ✅ Progressive workout types: Walk, Walk-Jog, Easy Jog, Easy Run
-- ✅ Experience-based progression timing
+```bash
+# Run the full endpoint test suite
+npm test
 
-### Workout Sequencing Rules
-- ✅ Easy/Recovery runs between hard efforts
-- ✅ Minimum 1 day recovery after intervals
-- ✅ Minimum 1 day recovery after long run
-- ✅ No tempo/intervals day before long run
-- ✅ Hard workouts spaced 2-3 days apart
+# Quick tests for specific plan types
+npm run test:5k
+npm run test:marathon
+```
 
-### Rest Day Intelligence
-- ✅ Experience-based requirements
-- ✅ Automatic rest day calculation (7 days - training days)
-- ✅ Smart placement after hard workouts
-- ✅ Never on long run day
-
-### Tapering Strategy
-- ✅ 1-3 week taper before race
-- ✅ Progressive volume reduction
-- ✅ Maintains workout frequency
-- ✅ Includes sharpness work (strides/short tempo)
-
-### Pace Recommendations
-- ✅ Specific pace ranges for every workout
-- ✅ Experience-adjusted paces
-- ✅ Effort-based descriptions
-- ✅ Structured workout details (warmup/cooldown)
+Test output samples are saved in `endpoint-test-results/`.
 
 ---
 
-## 🔧 Technical Details
+## Tech stack
 
-**Dependencies:**
-- Express.js - API framework
-- OpenAI - AI-powered plan generation
-- CORS - Cross-origin support
-- dotenv - Environment configuration
-- uuid - Unique plan IDs
+| Component | Technology |
+|-----------|------------|
+| Runtime | Node.js |
+| Framework | Express 5 |
+| AI | OpenAI API |
+| Storage | In-memory (24h TTL) |
+| Other | CORS, dotenv, uuid |
 
-**Storage:**
-- In-memory plan storage with 24-hour TTL
-- Automatic cleanup of expired plans
+---
 
-**AI Models:**
-- gpt-5-nano - Fast first week generation
-- gpt-5-mini - Complete plan generation with detailed analysis
+## Deployment notes
+
+- Set `ALLOWED_ORIGINS` in production instead of allowing all origins (`*`).
+- Plans are stored in memory — use Redis or a database for production persistence.
+- The server forces UTC (`process.env.TZ = 'UTC'`) for consistent date handling across environments.
+- Expose the API via a reverse proxy or tunnel (e.g. ngrok) for mobile app development.
+
+---
+
+## License
+
+MIT
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes
+4. Push to your fork and open a Pull Request
+
+For questions or issues, open a GitHub issue on [JhilmilJain1/RUN-365](https://github.com/JhilmilJain1/RUN-365).

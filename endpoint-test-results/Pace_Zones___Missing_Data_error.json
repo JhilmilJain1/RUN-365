@@ -1,0 +1,13 @@
+{
+  "endpoint": "Pace Zones - Missing Data",
+  "method": "POST",
+  "path": "/calculate-pace-zones",
+  "payload": {
+    "goal_race_time": "3:30:00"
+  },
+  "error": {
+    "error": "Missing required fields: goal_race_time and race_distance"
+  },
+  "status": 400,
+  "timestamp": "2026-01-28T08:45:11.592Z"
+}

@@ -1,0 +1,35 @@
+{
+  "endpoint": "Pace Zones - 10K",
+  "method": "POST",
+  "path": "/calculate-pace-zones",
+  "payload": {
+    "goal_race_time": "45:00",
+    "race_distance": 10,
+    "experience": "Elite",
+    "measurement_unit": "km"
+  },
+  "response": {
+    "success": true,
+    "pace_zones": {
+      "goal_pace": "4:30 min/km",
+      "easy": "5:30-5:45 min/km",
+      "long": "5:15-5:30 min/km",
+      "tempo": "4:50-5:00 min/km",
+      "threshold": "4:40-4:50 min/km",
+      "intervals": "4:15-4:25 min/km",
+      "recovery": "6:00-6:30 min/km"
+    },
+    "measurement_unit": "km",
+    "experience": "Elite",
+    "notes": {
+      "easy": "Conversational pace, should be able to talk in full sentences",
+      "long": "Comfortable, sustainable pace for long distances",
+      "tempo": "Comfortably hard, sustainable for 45-75 minutes",
+      "threshold": "Hard but controlled, race pace effort",
+      "intervals": "Hard effort with recovery periods between",
+      "recovery": "Very easy, active recovery pace"
+    }
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.584Z"
+}

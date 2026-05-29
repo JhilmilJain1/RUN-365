@@ -1,0 +1,110 @@
+{
+  "endpoint": "Generate Plan - 5K",
+  "method": "POST",
+  "path": "/generate-plan",
+  "payload": {
+    "plan_name": "5k",
+    "plan_type": "5k",
+    "measurement_unit": "km",
+    "running_experience": "Advanced",
+    "start_date": "2025-02-01T18:00:00Z",
+    "specific_days": "Monday,Wednesday,Friday,Saturday",
+    "long_run_day": "Saturday",
+    "days_per_week": 4,
+    "min_weeks_plan": 8,
+    "max_week_plans": 12,
+    "estimated_race_time": "18:00",
+    "weekly_mileage_past_4_weeks": "30-35",
+    "longest_run_past_4_weeks": "5",
+    "course_profile": "Hilly",
+    "age": 25,
+    "gender": "male",
+    "height": "172",
+    "weight": "62"
+  },
+  "response": {
+    "success": true,
+    "plan_id": "a2f2fa11-210a-4803-b240-86daa25a2f5c",
+    "plan_type": "5k",
+    "duration": 9,
+    "target_distance": 18.5,
+    "description": "25-year-old male, 172, 62. This 9-week 5k plan is tailored for advanced runners. [MOCK DATA - Replace with valid OpenAI API key for real plans]",
+    "pace_guide": {
+      "easy": "6:30-7:00 min/km - Conversational pace",
+      "recovery": "7:00-7:30 min/km - Very easy, active recovery",
+      "long": "6:15-6:45 min/km - Comfortable, sustainable",
+      "tempo": "5:45-6:00 min/km - Comfortably hard",
+      "threshold": "5:30-5:45 min/km - Hard but controlled",
+      "intervals": "5:00-5:15 min/km - Hard effort",
+      "goal_pace": "5:30 min/km - Target race pace"
+    },
+    "weekly_plans": [
+      {
+        "week_number": 1,
+        "week_focus": "Base building",
+        "start_date": "2025-02-01",
+        "end_date": "2025-02-07",
+        "total_weekly_distance": 18.5,
+        "user_distance": 0,
+        "user_time": 0,
+        "workouts": [
+          {
+            "day": "Monday",
+            "date": "2025-01-27",
+            "workout_type": "Easy Run",
+            "distance": 4.5,
+            "duration": 32,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/km",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Wednesday",
+            "date": "2025-01-29",
+            "workout_type": "Easy Run",
+            "distance": 4.5,
+            "duration": 32,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/km",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Friday",
+            "date": "2025-01-31",
+            "workout_type": "Easy Run",
+            "distance": 4.5,
+            "duration": 32,
+            "intensity": "Easy",
+            "pace_range": "6:30-7:00 min/km",
+            "description": "Easy conversational run. Should feel comfortable and sustainable.",
+            "user_distance": 0,
+            "user_time": 0
+          },
+          {
+            "day": "Saturday",
+            "date": "2025-02-01",
+            "workout_type": "Long Run",
+            "distance": 5,
+            "duration": 35,
+            "intensity": "Long Easy",
+            "pace_range": "6:15-6:45 min/km",
+            "description": "Long run at comfortable, sustainable pace. Focus on time on feet.",
+            "user_distance": 0,
+            "user_time": 0
+          }
+        ]
+      }
+    ],
+    "has_more_weeks": true,
+    "total_weeks": 9,
+    "remaining_weeks": 8,
+    "generated_at": "2026-01-28T08:45:11.637Z",
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.641Z"
+}

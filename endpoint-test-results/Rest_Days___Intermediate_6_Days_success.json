@@ -1,0 +1,23 @@
+{
+  "endpoint": "Rest Days - Intermediate 6 Days",
+  "method": "POST",
+  "path": "/validate-rest-days",
+  "payload": {
+    "experience": "Intermediate",
+    "training_days": 6
+  },
+  "response": {
+    "success": true,
+    "experience": "Intermediate",
+    "training_days": 6,
+    "rest_day_requirements": {
+      "required_rest_days": 0,
+      "recommended_rest_days": 0,
+      "allow_all_seven_days": true,
+      "warning": null
+    },
+    "recommendation": "Rest day schedule is appropriate for your experience level."
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.612Z"
+}

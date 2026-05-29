@@ -1,0 +1,965 @@
+{
+  "endpoint": "Get Full Plan - Half Marathon",
+  "method": "POST",
+  "path": "/get-remaining-plan",
+  "payload": {
+    "plan_id": "f67df2a0-4afd-47b1-a564-04823b453866"
+  },
+  "response": {
+    "success": true,
+    "recommended_plan": {
+      "plan_type": "half marathon",
+      "duration": 16,
+      "weekly_plans": [
+        {
+          "week_number": 1,
+          "week_focus": "Base building",
+          "start_date": "2025-02-01",
+          "end_date": "2025-02-07",
+          "total_weekly_distance": 13,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-01-28",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 33,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/mi",
+              "description": "Easy conversational run. Should feel comfortable and sustainable.",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-01-30",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 33,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/mi",
+              "description": "Easy conversational run. Should feel comfortable and sustainable.",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-02-01",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 33,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/mi",
+              "description": "Easy conversational run. Should feel comfortable and sustainable.",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-02-02",
+              "workout_type": "Long Run",
+              "distance": 4,
+              "duration": 44,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/mi",
+              "description": "Long run at comfortable, sustainable pace. Focus on time on feet.",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 2,
+          "week_focus": "Build",
+          "start_date": "2025-02-08",
+          "end_date": "2025-02-14",
+          "total_weekly_distance": 14,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-02-09",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-02-11",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-02-13",
+              "workout_type": "Easy Run",
+              "distance": 2.5,
+              "duration": 18,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-02-14",
+              "workout_type": "Long Run",
+              "distance": 4.2,
+              "duration": 30,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 3,
+          "week_focus": "Build",
+          "start_date": "2025-02-15",
+          "end_date": "2025-02-21",
+          "total_weekly_distance": 14,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-02-16",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-02-18",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-02-20",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 21,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-02-21",
+              "workout_type": "Long Run",
+              "distance": 4.2,
+              "duration": 30,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 4,
+          "week_focus": "Build",
+          "start_date": "2025-02-22",
+          "end_date": "2025-02-28",
+          "total_weekly_distance": 15,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-02-23",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 21,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-02-25",
+              "workout_type": "Easy Run",
+              "distance": 3,
+              "duration": 21,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-02-27",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-02-28",
+              "workout_type": "Long Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 5,
+          "week_focus": "Build",
+          "start_date": "2025-03-01",
+          "end_date": "2025-03-07",
+          "total_weekly_distance": 16,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-03-02",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-03-04",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-03-06",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-03-07",
+              "workout_type": "Long Run",
+              "distance": 4.8,
+              "duration": 34,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 6,
+          "week_focus": "Build",
+          "start_date": "2025-03-08",
+          "end_date": "2025-03-14",
+          "total_weekly_distance": 16,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-03-09",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-03-11",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-03-13",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-03-14",
+              "workout_type": "Long Run",
+              "distance": 4.8,
+              "duration": 34,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 7,
+          "week_focus": "Build",
+          "start_date": "2025-03-15",
+          "end_date": "2025-03-21",
+          "total_weekly_distance": 17,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-03-16",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-03-18",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-03-20",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-03-21",
+              "workout_type": "Long Run",
+              "distance": 5.1,
+              "duration": 36,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 8,
+          "week_focus": "Build",
+          "start_date": "2025-03-22",
+          "end_date": "2025-03-28",
+          "total_weekly_distance": 18,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-03-23",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-03-25",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-03-27",
+              "workout_type": "Easy Run",
+              "distance": 3.5,
+              "duration": 25,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-03-28",
+              "workout_type": "Long Run",
+              "distance": 5.3999999999999995,
+              "duration": 38,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 9,
+          "week_focus": "Build",
+          "start_date": "2025-03-29",
+          "end_date": "2025-04-04",
+          "total_weekly_distance": 18,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-03-30",
+              "workout_type": "Easy Run",
+              "distance": 5,
+              "duration": 35,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-04-01",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-04-03",
+              "workout_type": "Easy Run",
+              "distance": 5,
+              "duration": 35,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-04-04",
+              "workout_type": "Long Run",
+              "distance": 5.3999999999999995,
+              "duration": 38,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 10,
+          "week_focus": "Build",
+          "start_date": "2025-04-05",
+          "end_date": "2025-04-11",
+          "total_weekly_distance": 19,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-04-06",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-04-08",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-04-10",
+              "workout_type": "Easy Run",
+              "distance": 5.5,
+              "duration": 39,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-04-11",
+              "workout_type": "Long Run",
+              "distance": 5.7,
+              "duration": 40,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 11,
+          "week_focus": "Build",
+          "start_date": "2025-04-12",
+          "end_date": "2025-04-18",
+          "total_weekly_distance": 20,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-04-13",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-04-15",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-04-17",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-04-18",
+              "workout_type": "Long Run",
+              "distance": 6,
+              "duration": 42,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 12,
+          "week_focus": "Build",
+          "start_date": "2025-04-19",
+          "end_date": "2025-04-25",
+          "total_weekly_distance": 20,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-04-20",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-04-22",
+              "workout_type": "Easy Run",
+              "distance": 5.5,
+              "duration": 39,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-04-24",
+              "workout_type": "Easy Run",
+              "distance": 5,
+              "duration": 35,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-04-25",
+              "workout_type": "Long Run",
+              "distance": 6,
+              "duration": 42,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 13,
+          "week_focus": "Build",
+          "start_date": "2025-04-26",
+          "end_date": "2025-05-02",
+          "total_weekly_distance": 21,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-04-27",
+              "workout_type": "Easy Run",
+              "distance": 4.5,
+              "duration": 32,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-04-29",
+              "workout_type": "Easy Run",
+              "distance": 6,
+              "duration": 42,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-05-01",
+              "workout_type": "Easy Run",
+              "distance": 5.5,
+              "duration": 39,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-05-02",
+              "workout_type": "Long Run",
+              "distance": 6.3,
+              "duration": 45,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 14,
+          "week_focus": "Build",
+          "start_date": "2025-05-03",
+          "end_date": "2025-05-09",
+          "total_weekly_distance": 21,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-05-04",
+              "workout_type": "Easy Run",
+              "distance": 5.5,
+              "duration": 39,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-05-06",
+              "workout_type": "Easy Run",
+              "distance": 4,
+              "duration": 28,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-05-08",
+              "workout_type": "Easy Run",
+              "distance": 5,
+              "duration": 35,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-05-09",
+              "workout_type": "Long Run",
+              "distance": 6.3,
+              "duration": 45,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 15,
+          "week_focus": "Build",
+          "start_date": "2025-05-10",
+          "end_date": "2025-05-16",
+          "total_weekly_distance": 22,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-05-11",
+              "workout_type": "Easy Run",
+              "distance": 6,
+              "duration": 42,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-05-13",
+              "workout_type": "Easy Run",
+              "distance": 5.5,
+              "duration": 39,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-05-15",
+              "workout_type": "Easy Run",
+              "distance": 5,
+              "duration": 35,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy Run at easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-05-16",
+              "workout_type": "Long Run",
+              "distance": 6.6,
+              "duration": 47,
+              "intensity": "Long Easy",
+              "pace_range": "6:15-6:45 min/km",
+              "description": "Long Run at long easy effort",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        },
+        {
+          "week_number": 16,
+          "week_focus": "Race week",
+          "start_date": "2025-05-17",
+          "end_date": "2025-05-23",
+          "total_weekly_distance": 23,
+          "user_distance": 0,
+          "user_time": 0,
+          "workouts": [
+            {
+              "day": "Tuesday",
+              "date": "2025-05-18",
+              "workout_type": "Easy Run",
+              "distance": 2,
+              "duration": 15,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy shakeout run",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Thursday",
+              "date": "2025-05-20",
+              "workout_type": "Easy Run",
+              "distance": 2,
+              "duration": 15,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy shakeout run",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Saturday",
+              "date": "2025-05-22",
+              "workout_type": "Easy Run",
+              "distance": 2,
+              "duration": 15,
+              "intensity": "Easy",
+              "pace_range": "6:30-7:00 min/km",
+              "description": "Easy shakeout run",
+              "user_distance": 0,
+              "user_time": 0
+            },
+            {
+              "day": "Sunday",
+              "date": "2025-05-23",
+              "workout_type": "Race",
+              "distance": 21.1,
+              "duration": 180,
+              "intensity": "Goal-pace",
+              "pace_range": "5:30 min/km",
+              "description": "half marathon race day!",
+              "user_distance": 0,
+              "user_time": 0
+            }
+          ]
+        }
+      ],
+      "mock_data": true
+    },
+    "mock_data": true
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.700Z"
+}

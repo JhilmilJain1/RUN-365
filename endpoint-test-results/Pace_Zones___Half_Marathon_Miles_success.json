@@ -1,0 +1,35 @@
+{
+  "endpoint": "Pace Zones - Half Marathon Miles",
+  "method": "POST",
+  "path": "/calculate-pace-zones",
+  "payload": {
+    "goal_race_time": "1:45:00",
+    "race_distance": 13.1,
+    "experience": "Advanced",
+    "measurement_unit": "miles"
+  },
+  "response": {
+    "success": true,
+    "pace_zones": {
+      "goal_pace": "8:01 min/miles",
+      "easy": "9:01-9:16 min/miles",
+      "long": "8:46-9:01 min/miles",
+      "tempo": "8:21-8:31 min/miles",
+      "threshold": "8:11-8:21 min/miles",
+      "intervals": "7:46-7:56 min/miles",
+      "recovery": "9:31-10:01 min/miles"
+    },
+    "measurement_unit": "miles",
+    "experience": "Advanced",
+    "notes": {
+      "easy": "Conversational pace, should be able to talk in full sentences",
+      "long": "Comfortable, sustainable pace for long distances",
+      "tempo": "Comfortably hard, sustainable for 45-75 minutes",
+      "threshold": "Hard but controlled, race pace effort",
+      "intervals": "Hard effort with recovery periods between",
+      "recovery": "Very easy, active recovery pace"
+    }
+  },
+  "status": 200,
+  "timestamp": "2026-01-28T08:45:11.575Z"
+}

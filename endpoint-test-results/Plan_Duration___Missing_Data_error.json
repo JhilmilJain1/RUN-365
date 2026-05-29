@@ -1,0 +1,13 @@
+{
+  "endpoint": "Plan Duration - Missing Data",
+  "method": "POST",
+  "path": "/calculate-plan-duration",
+  "payload": {
+    "start_date": "2025-02-01"
+  },
+  "error": {
+    "error": "Missing required fields: start_date and race_date"
+  },
+  "status": 400,
+  "timestamp": "2026-01-28T08:45:11.606Z"
+}
